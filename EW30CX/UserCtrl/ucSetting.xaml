@@ -1,0 +1,566 @@
+﻿<UserControl x:Class="EW30CX.UserCtrl.ucSetting"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EW30CX.UserCtrl"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="1600" d:DesignWidth="350">
+
+    <UserControl.Resources>
+
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border  Name="Border" Margin="0,0,-4,0" BorderThickness="1,1,1,1" CornerRadius="2,12,0,0" >
+                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="12,2,12,2" RecognizesAccessKey="True"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="100"/>
+                                <Setter TargetName="Border" Property="Background" Value="#43d854" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="1,1,1,0" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="#FFFFFF" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="Orange" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="IsEditable" Value="True"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="Padding" Value="5,0,0,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Blue"/>
+            <EventSetter Event="PreviewMouseWheel" Handler="ComboBox_PreviewMouseWheel"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="Padding" Value="5,0,0,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Blue"/>
+        </Style>
+
+        <Style x:Key="btn_browse_file" TargetType="Button">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Content" Value="..."/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Width" Value="20"/>
+            <EventSetter Event="Click" Handler="Button_Click"/>
+        </Style>
+
+
+    </UserControl.Resources>
+
+    <Border CornerRadius="5" Background="White" BorderBrush="#777777" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <TabControl Margin="5" Grid.Row="0">
+                <TabItem>
+                    <TabItem.Header>
+                        <Grid Height="30">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="Cài đặt hệ thống" FontWeight="SemiBold"/>
+                        </Grid>
+                    </TabItem.Header>
+
+                    <ScrollViewer Margin="5,5,5,5">
+                        <StackPanel Margin="0,0,5,0">
+
+                            <!--UART TO USB-->
+                            <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="BỘ CHUYỂN ĐỔI USB SANG COM:"/>
+                            <Label Content="Tên cổng COM" FontSize="13"/>
+                            <ComboBox x:Name="cbbSerialPort" Text="{Binding Path=SerialPortName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+                            <!--MINUS-->
+                            <Label FontSize="15" FontWeight="Bold" Content="-"/>
+
+                            <!--CÀI ĐẶT TRẠM-->
+                            <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="CÀI ĐẶT TRẠM:"/>
+                            <!--<Label Content="Số thứ tự jig" FontSize="13"/>
+                            <ComboBox x:Name="cbbJig" Text="{Binding Path=JigNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>-->
+                            <Label Content="Nhà máy sản xuất" FontSize="13"/>
+                            <ComboBox x:Name="cbbFac" Text="{Binding Path=Factory, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <Label Content="Chuyền sản xuất" FontSize="13"/>
+                            <ComboBox x:Name="cbbLine" Text="{Binding Path=LineNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <Label Content="Tên trạm" FontSize="13"/>
+                            <ComboBox IsEnabled="False" x:Name="cbbStationName" Text="{Binding Path=StationName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <Label Content="Số thứ tự trạm" FontSize="13"/>
+                            <ComboBox IsEnabled="False" x:Name="cbbStationNumber" Text="{Binding Path=StationNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <Label Content="Mã lệnh sản xuất" FontSize="13"/>
+                            <TextBox Text="{Binding Path=WorkOrder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <Label Content="Tên người thao tác" FontSize="13"/>
+                            <TextBox Text="{Binding Path=Operator, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+                            <!--MINUS-->
+                            <Label FontSize="15" FontWeight="Bold" Content="-"/>
+
+                            <!--CÀI ĐẶT GHI THÔNG TIN SẢN PHẨM-->
+                            <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="CÀI ĐẶT THÔNG TIN IMAP:"/>
+                            <Label Content="6 kí tự đầu tiên của địa chỉ MAC" FontSize="13"></Label>
+                            <TextBox Text="{Binding Path=MacHeader, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            <Label Content="Phiên bản hardware" FontSize="13"/>
+                            <TextBox Text="{Binding Path=HardwareVersion, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            <Label Content="Số model" FontSize="13"/>
+                            <TextBox Text="{Binding Path=ModelNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            <Label Content="Speed Ethernet (MB)" FontSize="13"/>
+                            <TextBox IsEnabled="False" Text="{Binding Path=SpeedEthernet, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            <!--MINUS-->
+                            <Label FontSize="15" FontWeight="Bold" Content="-"/>
+
+                            <!--CÀI ĐẶT THÔNG TIN FIRMWARE BASIC-->
+                            <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="CÀI ĐẶT THÔNG TIN FIRMWARE BASIC:"/>
+                            <Label Content="Firmware basic version" FontSize="13"/>
+                            <TextBox Text="{Binding Path=FirmwareVersion, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            <Label Content="Firmware basic build time" FontSize="13"/>
+                            <TextBox Text="{Binding Path=FirmwareBuildTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            <Label Content="Tên file kernel (*.bin)" FontSize="13"/>
+                            <Grid>
+                                <TextBox IsReadOnly="True" Text="{Binding Path=FileKernel, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <Button Tag="browse_kernel" Style="{StaticResource btn_browse_file}"/>
+                            </Grid>
+                            <Label Content="Tên file root (*.bin)" FontSize="13"/>
+                            <Grid>
+                                <TextBox IsReadOnly="True" Text="{Binding Path=FileRoot, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <Button Tag="browse_root" Style="{StaticResource btn_browse_file}"/>
+                            </Grid>
+
+                            <!--MINUS-->
+                            <Label Visibility="Collapsed" FontSize="15" FontWeight="Bold" Content="-"/>
+
+                            <!--CÀI ĐẶT LƯU LOG-->
+                            <Label Visibility="Collapsed" Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="CÀI ĐẶT LƯU LOG:"/>
+                            <Label Visibility="Collapsed" Content="Đường dẫn folder lưu log" FontSize="13"/>
+                            <Grid Visibility="Collapsed">
+                                <TextBox IsReadOnly="True" Text="{Binding Path=logDirectory, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <Button Tag="browse_log_path" Style="{StaticResource btn_browse_file}"/>
+                            </Grid>
+
+                            <!--MINUS-->
+                            <Label FontSize="15" FontWeight="Bold" Content="-"/>
+
+                            <!--CÀI ĐẶT GIÁ TRỊ TIMEOUT-->
+                            <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="CÀI ĐẶT GIÁ TRỊ TIMEOUT:"/>
+                            <StackPanel>
+                                <StackPanel.Resources>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontSize" Value="13"/>
+                                        <Setter Property="Margin" Value="0,0,0,0"/>
+                                        <Setter Property="Width" Value="200"/>
+                                        <Setter Property="BorderBrush" Value="#777777"/>
+                                        <Setter Property="BorderThickness" Value="1,0,1,1"/>
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="Padding" Value="5,3,0,0"/>
+                                        <Setter Property="Height" Value="25"/>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                    </Style>
+
+                                    <!--textbox-->
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="FontSize" Value="13"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="BorderBrush" Value="#777777"/>
+                                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                        <Setter Property="Height" Value="25"/>
+                                        <Setter Property="Margin" Value="200,0,0,0"/>
+                                        <Setter Property="Padding" Value="5,0,0,0"/>
+                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                        <Setter Property="Foreground" Value="Blue"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Background" Value="White"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsFocused" Value="True">
+                                                <Setter Property="Background" Value="#e1f2b8"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Border BorderBrush="#777777" BorderThickness="0,0,0,1"/>
+
+                                <StackPanel IsEnabled="False">
+                                    <Grid>
+                                        <Label Content="Đăng nhập uboot (sec)"/>
+                                        <TextBox Text="{Binding Path=timeOutAccessUboot, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                    </Grid>
+                                    <Grid>
+                                        <Label Content="Transfer file kernel (sec)"/>
+                                        <TextBox Text="{Binding Path=timeOutTransferFileKernel, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                    </Grid>
+                                    <Grid>
+                                        <Label Content="Transfer file root (sec)"/>
+                                        <TextBox Text="{Binding Path=timeOutTransferFileRoot, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                    </Grid>
+                                    <Grid>
+                                        <Label Content="Chờ khởi động (sec)"/>
+                                        <TextBox Text="{Binding Path=timeOutWaitBootingComplete, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                    </Grid>
+                                    <Grid>
+                                        <Label Content="Kiểm tra LED (sec)"/>
+                                        <TextBox Text="{Binding Path=timeOutCheckLed, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                    </Grid>
+                                    <Grid>
+                                        <Label Content="Kiểm tra nút nhấn (sec)"/>
+                                        <TextBox Text="{Binding Path=timeOutCheckButton, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                    </Grid>
+                                    <Grid>
+                                        <Label Content="Chờ nhấn nút WPS (sec)"/>
+                                        <TextBox Text="{Binding Path=timeOutPressButtonWps, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                    </Grid>
+                                    <Grid>
+                                        <Label Content="Chờ nhấn nút Reset (sec)"/>
+                                        <TextBox Text="{Binding Path=timeOutPressButtonReset, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                    </Grid>
+                                </StackPanel>
+
+                            </StackPanel>
+
+                            <!--MINUS-->
+                            <Label FontSize="15" FontWeight="Bold" Content="-"/>
+
+                            <!--CÀI ĐẶT GIÁ TRỊ DELAY-->
+                            <StackPanel>
+                                <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="CÀI ĐẶT GIÁ TRỊ DELAY:"/>
+                                <Label Content="Thời gian đợi khởi động (sec)" FontSize="13"/>
+                                <TextBox Text="{Binding Path=waitBootComplete, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            </StackPanel>
+
+                            <!--MINUS-->
+                            <Label FontSize="15" FontWeight="Bold" Content="-"/>
+                            <Label Content="" Margin="0,10,0,0"/>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <TabItem>
+                    <TabItem.Header>
+                        <Grid Height="30">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="Cấu hình bài test" FontWeight="SemiBold"/>
+                        </Grid>
+                    </TabItem.Header>
+
+                    <ScrollViewer  Margin="5,5,5,5">
+                        <StackPanel IsEnabled="False" Margin="0,0,5,0">
+                            <Grid Height="470" Margin="0,10,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="175"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!--ERASE CALIB WLAN-->
+                                <Label Grid.Row="0" Grid.Column="0" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Right" Content="Erase Calib Wifi"/>
+                                <ToggleButton IsEnabled="False" Grid.Row="0" Grid.Column="1" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=isEraseCalibWlan, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label Grid.Row="0" Grid.Column="2" FontSize="20" FontWeight="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=isEraseCalibWlan}" Value="true">
+                                                    <Setter Property="Content" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorContentOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=isEraseCalibWlan}" Value="false">
+                                                    <Setter Property="Content" Value="OFF"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+
+                                <!--CHANGE IP-->
+                                <Label Grid.Row="1" Grid.Column="0" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Right" Content="Change IP"/>
+                                <ToggleButton IsEnabled="False" Grid.Row="1" Grid.Column="1" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=isChangeIP, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <Label Grid.Row="1" Grid.Column="2" FontSize="20" FontWeight="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=isChangeIP}" Value="true">
+                                                    <Setter Property="Content" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorContentOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=isChangeIP}" Value="false">
+                                                    <Setter Property="Content" Value="OFF"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+
+                                <!--WRITE MAC-->
+                                <Label Grid.Row="2" Grid.Column="0" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Right" Content="Write Mac Lan"/>
+                                <ToggleButton IsEnabled="False" Grid.Row="2" Grid.Column="1" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=isWriteMacLan, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <Label Grid.Row="2" Grid.Column="2" FontSize="20" FontWeight="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=isWriteMacLan}" Value="true">
+                                                    <Setter Property="Content" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorContentOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=isWriteMacLan}" Value="false">
+                                                    <Setter Property="Content" Value="OFF"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+
+                                <!--WRITE HW-->
+                                <Label Grid.Row="3" Grid.Column="0" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Right" Content="Write HW"/>
+                                <ToggleButton IsEnabled="False" Grid.Row="3" Grid.Column="1" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=isWriteHW, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label Grid.Row="3" Grid.Column="2" FontSize="20" FontWeight="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=isWriteHW}" Value="true">
+                                                    <Setter Property="Content" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorContentOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=isWriteHW}" Value="false">
+                                                    <Setter Property="Content" Value="OFF"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+
+                                <!--WRITE MODEL-->
+                                <Label Grid.Row="4" Grid.Column="0" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Right" Content="Write Model"/>
+                                <ToggleButton IsEnabled="False" Grid.Row="4" Grid.Column="1" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=isWriteModel, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label Grid.Row="4" Grid.Column="2" FontSize="20" FontWeight="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=isWriteModel}" Value="true">
+                                                    <Setter Property="Content" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorContentOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=isWriteModel}" Value="false">
+                                                    <Setter Property="Content" Value="OFF"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+
+                                <!--UPLOAD FIRMWARE-->
+                                <Label Grid.Row="5" Grid.Column="0" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Right" Content="Upload FW"/>
+                                <ToggleButton Grid.Row="5" Grid.Column="1" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=isUploadFW, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label Grid.Row="5" Grid.Column="2" FontSize="20" FontWeight="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=isUploadFW}" Value="true">
+                                                    <Setter Property="Content" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorContentOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=isUploadFW}" Value="false">
+                                                    <Setter Property="Content" Value="OFF"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+
+
+                                <!--CHECK MAC ETHERNET-->
+                                <Label Grid.Row="6" Grid.Column="0" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Right" Content="Check Mac Ethernet"/>
+                                <ToggleButton Grid.Row="6" Grid.Column="1" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=isCheckMacEthernet, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <Label Grid.Row="6" Grid.Column="2" FontSize="20" FontWeight="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=isCheckMacEthernet}" Value="true">
+                                                    <Setter Property="Content" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorContentOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=isCheckMacEthernet}" Value="false">
+                                                    <Setter Property="Content" Value="OFF"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+
+
+                                <!--CHECK QCA9886-->
+                                <Label Grid.Row="7" Grid.Column="0" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Right" Content="Check Wifi Block"/>
+                                <ToggleButton Grid.Row="7" Grid.Column="1" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=isCheckQCA9886, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <Label Grid.Row="7" Grid.Column="2" FontSize="20" FontWeight="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=isCheckQCA9886}" Value="true">
+                                                    <Setter Property="Content" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorContentOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=isCheckQCA9886}" Value="false">
+                                                    <Setter Property="Content" Value="OFF"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+
+                                <!--CHECK Firmware Version-->
+                                <Label Grid.Row="8" Grid.Column="0" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Right" Content="Check Fw Version"/>
+                                <ToggleButton Grid.Row="8" Grid.Column="1" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=isCheckFwVersion, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label Grid.Row="8" Grid.Column="2" FontSize="20" FontWeight="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=isCheckFwVersion}" Value="true">
+                                                    <Setter Property="Content" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorContentOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=isCheckFwVersion}" Value="false">
+                                                    <Setter Property="Content" Value="OFF"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+
+                                <!--CHECK Firmware Build Time-->
+                                <Label Grid.Row="9" Grid.Column="0" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Right" Content="Check Fw Build Time"/>
+                                <ToggleButton Grid.Row="9" Grid.Column="1" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=isCheckFwBuildTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label Grid.Row="9" Grid.Column="2" FontSize="20" FontWeight="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=isCheckFwBuildTime}" Value="true">
+                                                    <Setter Property="Content" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorContentOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=isCheckFwBuildTime}" Value="false">
+                                                    <Setter Property="Content" Value="OFF"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+
+                                <!--CHECK WAN-->
+                                <Label Grid.Row="10" Grid.Column="0" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Right" Content="Check WAN"/>
+                                <ToggleButton Grid.Row="10" Grid.Column="1" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=isCheckWan, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label Grid.Row="10" Grid.Column="2" FontSize="20" FontWeight="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=isCheckWan}" Value="true">
+                                                    <Setter Property="Content" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorContentOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=isCheckWan}" Value="false">
+                                                    <Setter Property="Content" Value="OFF"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+
+                                <!--CHECK LEDS-->
+                                <Label Grid.Row="11" Grid.Column="0" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Right" Content="Check LEDs"/>
+                                <ToggleButton Grid.Row="11" Grid.Column="1" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=isCheckLED, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label Grid.Row="11" Grid.Column="2" FontSize="20" FontWeight="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=isCheckLED}" Value="true">
+                                                    <Setter Property="Content" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorContentOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=isCheckLED}" Value="false">
+                                                    <Setter Property="Content" Value="OFF"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+
+                                <!--CHECK BUTTONS-->
+                                <Label Grid.Row="12" Grid.Column="0" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Right" Content="Check Buttons"/>
+                                <ToggleButton Grid.Row="12" Grid.Column="1" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=isCheckButton, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label Grid.Row="12" Grid.Column="2" FontSize="20" FontWeight="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=isCheckButton}" Value="true">
+                                                    <Setter Property="Content" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorContentOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=isCheckButton}" Value="false">
+                                                    <Setter Property="Content" Value="OFF"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+            </TabControl>
+
+            <Button Grid.Row="1" Click="Button_Click" Margin="2,2,2,2"  FontSize="17" Background="{StaticResource colorBorder}" FontWeight="SemiBold" 
+                    Tag="save_setting" Content="Lưu cài đặt"/>
+        </Grid>
+
+
+    </Border>
+</UserControl>

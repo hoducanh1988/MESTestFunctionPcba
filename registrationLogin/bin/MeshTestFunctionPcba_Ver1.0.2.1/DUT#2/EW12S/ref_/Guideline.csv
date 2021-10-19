@@ -1,0 +1,3 @@
+﻿Tag,Tên,Giải thích,Cài đặt
+lineindex,<Dây chuyền>,Chỉ số của dây chuyền thiết lập trạm trong nhà máy. Giá trị là số tự nhiên : 1 hoặc 2 hoặc 3...,Cài đặt lựa chọn trong danh sách.
+stationname,<Tên Trạm Test>,Là tên trạm in tem. Nên viết liền không để khoảng trắng. Ví dụ: MasterBoxLabelPrint...,Cài đặt lựa chọn trong danh sách.

@@ -1,0 +1,44 @@
+﻿<SettingInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <IpDut>192.168.88.4</IpDut>
+  <Factory>2</Factory>
+  <LineNumber>1</LineNumber>
+  <StationName>UploadFirmwareBasic</StationName>
+  <StationNumber>3</StationNumber>
+  <WorkOrder>#12345</WorkOrder>
+  <Operator>nguyen van a</Operator>
+  <MacHeader>A06518:A4F4C2:D49AA0</MacHeader>
+  <HardwareVersion>EW12SG000H0001</HardwareVersion>
+  <ModelNumber>EW12SG</ModelNumber>
+  <SpeedLan>1000</SpeedLan>
+  <SpeedWan>1000</SpeedWan>
+  <FirmwareVersion>EW12XG000F0001</FirmwareVersion>
+  <FirmwareBuildTime>#1 Thu Sep 17 11:33:53 +07 2020</FirmwareBuildTime>
+  <FileKernel>openwrt-ar71xx-generic-ap152-16M-kernel.bin</FileKernel>
+  <FileRoot>openwrt-ar71xx-generic-ap152-16M-rootfs-squashfs.bin</FileRoot>
+  <IpServer>192.168.88.100</IpServer>
+  <SerialPortName>COM13</SerialPortName>
+  <isChangeIP>true</isChangeIP>
+  <isWriteMacLan>true</isWriteMacLan>
+  <isWriteHW>true</isWriteHW>
+  <isWriteModel>true</isWriteModel>
+  <isEraseCalibWlan>false</isEraseCalibWlan>
+  <isUploadFW>true</isUploadFW>
+  <isCheckMacEthernet>false</isCheckMacEthernet>
+  <isCheckQCA9886>false</isCheckQCA9886>
+  <isCheckFwVersion>false</isCheckFwVersion>
+  <isCheckFwBuildTime>false</isCheckFwBuildTime>
+  <isCheckLan>false</isCheckLan>
+  <isCheckWan>false</isCheckWan>
+  <isCheckLED>false</isCheckLED>
+  <isCheckButton>false</isCheckButton>
+  <timeOutAccessUboot>30</timeOutAccessUboot>
+  <timeOutTransferFileKernel>20</timeOutTransferFileKernel>
+  <timeOutTransferFileRoot>120</timeOutTransferFileRoot>
+  <timeOutWaitBootingComplete>90</timeOutWaitBootingComplete>
+  <timeOutCheckLed>180</timeOutCheckLed>
+  <timeOutCheckButton>180</timeOutCheckButton>
+  <timeOutPressButtonWps>30</timeOutPressButtonWps>
+  <timeOutPressButtonReset>30</timeOutPressButtonReset>
+  <waitBootComplete>0</waitBootComplete>
+  <logDirectory>D:\LOGDATA</logDirectory>
+</SettingInformation>

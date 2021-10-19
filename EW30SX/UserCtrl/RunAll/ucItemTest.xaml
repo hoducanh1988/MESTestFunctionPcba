@@ -1,0 +1,550 @@
+﻿<UserControl x:Class="EW30SX.UserCtrl.ucItemTest"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EW30SX.UserCtrl"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="300">
+
+    <ScrollViewer Margin="0,10,0,0" x:Name="Scr_LogSystem">
+        <StackPanel Background="White" Margin="0,0,1,2">
+            <StackPanel.Resources>
+
+                <Style x:Key="label_title" TargetType="Label">
+                    <Setter Property="Padding" Value="10,5,0,0"/>
+                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="FontWeight" Value="Normal"/>
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="Width" Value="200"/>
+                    <Setter Property="BorderBrush" Value="#777777"/>
+                    <Setter Property="BorderThickness" Value="0,0,0.5,0"/>
+                </Style>
+
+                <Style x:Key="label_content" TargetType="Label">
+                    <Setter Property="Padding" Value="10,0,0,0"/>
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="FontWeight" Value="Normal"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                </Style>
+
+            </StackPanel.Resources>
+
+            <Border BorderBrush="#777777" BorderThickness="0,0,0,0.5"/>
+
+            <!--Change IP Uboot-->
+            <Border Height="30" BorderBrush="#777777" BorderThickness="0.5,0,0.5,0.5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=isChangeIP}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=isChangeIP}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <WrapPanel>
+                    <Label  Style="{StaticResource label_title}" Content="Change IP Uboot"/>
+                    <Label  Content="{Binding Path=changeIP, UpdateSourceTrigger=PropertyChanged}">
+                        <Label.Style>
+                            <Style BasedOn="{StaticResource label_content}" TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=changeIP}" Value="-">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=changeIP}" Value="Waiting...">
+                                        <Setter Property="Foreground" Value="Orange"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=changeIP}" Value="Passed">
+                                        <Setter Property="Foreground" Value="Lime"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=changeIP}" Value="Failed">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </WrapPanel>
+            </Border>
+            
+            <!--Write Mac Lan-->
+            <Border Height="30" BorderBrush="#777777" BorderThickness="0.5,0,0.5,0.5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=isWriteMacLan}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=isWriteMacLan}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <WrapPanel>
+                    <Label  Style="{StaticResource label_title}" Content="Write mac lan"/>
+                    <Label  Content="{Binding Path=writeMacLan, UpdateSourceTrigger=PropertyChanged}">
+                        <Label.Style>
+                            <Style BasedOn="{StaticResource label_content}" TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=writeMacLan}" Value="-">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=writeMacLan}" Value="Waiting...">
+                                        <Setter Property="Foreground" Value="Orange"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=writeMacLan}" Value="Passed">
+                                        <Setter Property="Foreground" Value="Lime"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=writeMacLan}" Value="Failed">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </WrapPanel>
+            </Border>
+
+            <!--Write hardware version-->
+            <Border Height="30" BorderBrush="#777777" BorderThickness="0.5,0,0.5,0.5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=isWriteHW}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=isWriteHW}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <WrapPanel>
+                    <Label  Style="{StaticResource label_title}" Content="Write hardware version"/>
+                    <Label  Content="{Binding Path=writeHardwareVersion, UpdateSourceTrigger=PropertyChanged}">
+                        <Label.Style>
+                            <Style BasedOn="{StaticResource label_content}" TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=writeHardwareVersion}" Value="-">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=writeHardwareVersion}" Value="Waiting...">
+                                        <Setter Property="Foreground" Value="Orange"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=writeHardwareVersion}" Value="Passed">
+                                        <Setter Property="Foreground" Value="Lime"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=writeHardwareVersion}" Value="Failed">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </WrapPanel>
+            </Border>
+
+
+            <!--Write model number-->
+            <Border Height="30" BorderBrush="#777777" BorderThickness="0.5,0,0.5,0.5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=isWriteModel}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=isWriteModel}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <WrapPanel>
+                    <Label  Style="{StaticResource label_title}" Content="Write model number"/>
+                    <Label  Content="{Binding Path=writeModelNumber, UpdateSourceTrigger=PropertyChanged}">
+                        <Label.Style>
+                            <Style BasedOn="{StaticResource label_content}" TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=writeModelNumber}" Value="-">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=writeModelNumber}" Value="Waiting...">
+                                        <Setter Property="Foreground" Value="Orange"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=writeModelNumber}" Value="Passed">
+                                        <Setter Property="Foreground" Value="Lime"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=writeModelNumber}" Value="Failed">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </WrapPanel>
+            </Border>
+
+            <!--Erase Calib Wlan-->
+            <Border Height="30" BorderBrush="#777777" BorderThickness="0.5,0,0.5,0.5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=isEraseCalibWlan}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=isEraseCalibWlan}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <WrapPanel>
+                    <Label  Style="{StaticResource label_title}" Content="Erase calib wifi"/>
+                    <Label  Content="{Binding Path=EraseCalibWlan, UpdateSourceTrigger=PropertyChanged}">
+                        <Label.Style>
+                            <Style BasedOn="{StaticResource label_content}" TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=EraseCalibWlan}" Value="-">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=EraseCalibWlan}" Value="Waiting...">
+                                        <Setter Property="Foreground" Value="Orange"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=EraseCalibWlan}" Value="Passed">
+                                        <Setter Property="Foreground" Value="Lime"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=EraseCalibWlan}" Value="Failed">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </WrapPanel>
+            </Border>
+
+            <!--Upload firmware basic-->
+            <Border Height="30" BorderBrush="#777777" BorderThickness="0.5,0,0.5,0.5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=isUploadFW}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=isUploadFW}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <WrapPanel>
+                    <Label  Style="{StaticResource label_title}" Content="Upload firmware basic"/>
+                    <Label  Content="{Binding Path=uploadFirmwareBasic, UpdateSourceTrigger=PropertyChanged}">
+                        <Label.Style>
+                            <Style BasedOn="{StaticResource label_content}" TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=uploadFirmwareBasic}" Value="-">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=uploadFirmwareBasic}" Value="Waiting...">
+                                        <Setter Property="Foreground" Value="Orange"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=uploadFirmwareBasic}" Value="Passed">
+                                        <Setter Property="Foreground" Value="Lime"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=uploadFirmwareBasic}" Value="Failed">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </WrapPanel>
+            </Border>
+
+
+            <!--Check mac ethernet-->
+            <Border Height="30" BorderBrush="#777777" BorderThickness="0.5,0,0.5,0.5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=isCheckMacEthernet}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=isCheckMacEthernet}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <WrapPanel>
+                    <Label  Style="{StaticResource label_title}" Content="Check mac ethernet"/>
+                    <Label  Content="{Binding Path=checkMacEthernet, UpdateSourceTrigger=PropertyChanged}">
+                        <Label.Style>
+                            <Style BasedOn="{StaticResource label_content}" TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=checkMacEthernet}" Value="-">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkMacEthernet}" Value="Waiting...">
+                                        <Setter Property="Foreground" Value="Orange"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkMacEthernet}" Value="Passed">
+                                        <Setter Property="Foreground" Value="Lime"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkMacEthernet}" Value="Failed">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </WrapPanel>
+            </Border>
+
+            <!--Check Connection To QCA9886-->
+            <Border Height="30" BorderBrush="#777777" BorderThickness="0.5,0,0.5,0.5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=isCheckQCA9886}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=isCheckQCA9886}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <WrapPanel>
+                    <Label  Style="{StaticResource label_title}" Content="Check connection to wifi block"/>
+                    <Label  Content="{Binding Path=checkQCA9886, UpdateSourceTrigger=PropertyChanged}">
+                        <Label.Style>
+                            <Style BasedOn="{StaticResource label_content}" TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=checkQCA9886}" Value="-">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkQCA9886}" Value="Waiting...">
+                                        <Setter Property="Foreground" Value="Orange"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkQCA9886}" Value="Passed">
+                                        <Setter Property="Foreground" Value="Lime"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkQCA9886}" Value="Failed">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </WrapPanel>
+            </Border>
+
+            <!--Check firmware version-->
+            <Border Height="30" BorderBrush="#777777" BorderThickness="0.5,0,0.5,0.5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=isCheckFwVersion}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=isCheckFwVersion}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <WrapPanel>
+                    <Label  Style="{StaticResource label_title}" Content="Check firmware version"/>
+                    <Label  Content="{Binding Path=checkFwVersion, UpdateSourceTrigger=PropertyChanged}">
+                        <Label.Style>
+                            <Style BasedOn="{StaticResource label_content}" TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=checkFwVersion}" Value="-">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkFwVersion}" Value="Waiting...">
+                                        <Setter Property="Foreground" Value="Orange"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkFwVersion}" Value="Passed">
+                                        <Setter Property="Foreground" Value="Lime"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkFwVersion}" Value="Failed">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </WrapPanel>
+            </Border>
+
+            
+            <!--Check firmware build time-->
+            <Border Height="30" BorderBrush="#777777" BorderThickness="0.5,0,0.5,0.5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=isCheckFwBuildTime}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=isCheckFwBuildTime}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <WrapPanel>
+                    <Label  Style="{StaticResource label_title}" Content="Check firmware build time"/>
+                    <Label  Content="{Binding Path=checkFwBuildTime, UpdateSourceTrigger=PropertyChanged}">
+                        <Label.Style>
+                            <Style BasedOn="{StaticResource label_content}" TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=checkFwBuildTime}" Value="-">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkFwBuildTime}" Value="Waiting...">
+                                        <Setter Property="Foreground" Value="Orange"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkFwBuildTime}" Value="Passed">
+                                        <Setter Property="Foreground" Value="Lime"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkFwBuildTime}" Value="Failed">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </WrapPanel>
+            </Border>
+
+            <!--Check Wan Port-->
+            <Border Height="30" BorderBrush="#777777" BorderThickness="0.5,0,0.5,0.5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=isCheckWan}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=isCheckWan}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <WrapPanel>
+                    <Label  Style="{StaticResource label_title}" Content="Check wan port"/>
+                    <Label  Content="{Binding Path=checkWanPort, UpdateSourceTrigger=PropertyChanged}">
+                        <Label.Style>
+                            <Style BasedOn="{StaticResource label_content}" TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=checkWanPort}" Value="-">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkWanPort}" Value="Waiting...">
+                                        <Setter Property="Foreground" Value="Orange"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkWanPort}" Value="Passed">
+                                        <Setter Property="Foreground" Value="Lime"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkWanPort}" Value="Failed">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </WrapPanel>
+            </Border>
+
+            <!--Check LEDs-->
+            <Border Height="30" BorderBrush="#777777" BorderThickness="0.5,0,0.5,0.5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=isCheckLED}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=isCheckLED}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <WrapPanel>
+                    <Label  Style="{StaticResource label_title}" Content="Check leds"/>
+                    <Label  Content="{Binding Path=checkLED, UpdateSourceTrigger=PropertyChanged}">
+                        <Label.Style>
+                            <Style BasedOn="{StaticResource label_content}" TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=checkLED}" Value="-">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkLED}" Value="Waiting...">
+                                        <Setter Property="Foreground" Value="Orange"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkLED}" Value="Passed">
+                                        <Setter Property="Foreground" Value="Lime"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkLED}" Value="Failed">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </WrapPanel>
+            </Border>
+
+            <!--Check Buttons-->
+            <Border Height="30" BorderBrush="#777777" BorderThickness="0.5,0,0.5,0.5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=isCheckButton}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=isCheckButton}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <WrapPanel>
+                    <Label  Style="{StaticResource label_title}" Content="Check buttons"/>
+                    <Label  Content="{Binding Path=checkButton, UpdateSourceTrigger=PropertyChanged}">
+                        <Label.Style>
+                            <Style BasedOn="{StaticResource label_content}" TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=checkButton}" Value="-">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkButton}" Value="Waiting...">
+                                        <Setter Property="Foreground" Value="Orange"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkButton}" Value="Passed">
+                                        <Setter Property="Foreground" Value="Lime"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=checkButton}" Value="Failed">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </WrapPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+    
+
+</UserControl>

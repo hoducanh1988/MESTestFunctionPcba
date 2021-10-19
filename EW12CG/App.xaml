@@ -1,0 +1,43 @@
+﻿<Application x:Class="EW12CG.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:EW12CG"
+             StartupUri="MainWindow.xaml">
+
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <!--MaterialDesignThemes-->
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />-->
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />-->
+
+                <!--Controls resource-->
+                <ResourceDictionary Source="Assets/Resources/customWindow.xaml"/>
+                <ResourceDictionary Source="Assets/Resources/Textbox.xaml"/>
+                <ResourceDictionary Source="Assets/Resources/Button.xaml"/>
+                <ResourceDictionary Source="Assets/Resources/ToggleButton.xaml"/>
+
+                <!--Color resources-->
+                <ResourceDictionary>
+                    <SolidColorBrush x:Key="OrangePrimary300" Color="#FFFFB74D"/>
+                    <SolidColorBrush x:Key="colorTextContent" Color="#FF636363"/>
+                    <SolidColorBrush x:Key="colorTextTitle" Color="#FFF5F5F5"/>
+                    <SolidColorBrush x:Key="colorTextNG" Color="#f44141"/>
+                    <SolidColorBrush x:Key="colorTextOK" Color="#FF46e81e"/>
+                    <SolidColorBrush x:Key="colorContentOK" Color="#FF4CAF50"/>
+                    <SolidColorBrush x:Key="colorTextWait" Color="#f4a941"/>
+                    <SolidColorBrush x:Key="colorBorder" Color="#FF039BE5"/>
+                    <SolidColorBrush x:Key="colorBackground" Color="#FFEEEEEE"/>
+                    <SolidColorBrush x:Key="BackgroundReady" Color="#FFFFFFFF"/>
+                    <SolidColorBrush x:Key="BackgroundWait" Color="#FFFFFF7F"/>
+                    <SolidColorBrush x:Key="BackgroundPass" Color="#36E119"/>
+                    <SolidColorBrush x:Key="BackgroundFail" Color="#FFFF9F7F"/>
+                </ResourceDictionary>
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+    
+</Application>

@@ -1,0 +1,179 @@
+﻿<UserControl x:Class="EW12S.UserCtrl.ucRunAll"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EW12S.UserCtrl"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="320">
+
+    <UserControl.Resources>
+
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border Name="Border" Margin="0,0,-4,0" BorderThickness="1,1,1,1" CornerRadius="2,12,0,0" >
+                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="12,2,12,2" RecognizesAccessKey="True"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="100"/>
+                                <Setter TargetName="Border" Property="Background" Value="#43d854" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="1,1,1,0" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="#FFFFFF" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="Orange" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+
+    <Border CornerRadius="5" Background="White" BorderBrush="#777777" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="3"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3"/>
+                <RowDefinition Height="180"/>
+            </Grid.RowDefinitions>
+
+            <!--input mac address-->
+            <Grid Margin="5,10,5,0" Grid.Row="0">
+                <Label FontSize="15" FontWeight="SemiBold" Content="Input Mac Address :"/>
+                <TextBox x:Name="txtInputMac" Height="40" 
+                         Margin="3,5,3,0" Padding="10,0,0,0"
+                         FontSize="25" FontWeight="SemiBold"
+                         VerticalContentAlignment="Center" HorizontalContentAlignment="Left"
+                         KeyDown="TextBox_KeyDown"
+                         Tag="input_mac"
+                         Text="">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Setter Property="Background" Value="White"/>
+                            <Style.Triggers>
+                                <!--trigger-->
+                                <Trigger Property="IsFocused" Value="true">
+                                    <Setter Property="Background" Value="Yellow"/>
+                                </Trigger>
+                                <!--datatrigger-->
+                                <DataTrigger Binding="{Binding Path=totalResult}" Value="Waiting...">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Setter Property="Background" Value="White"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+            </Grid>
+
+            <GridSplitter Grid.Row="1" Background="#FFFFFF" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
+            <!--grid log-->
+            <TabControl Margin="5,0,0,0" Grid.Row="2" BorderThickness="0" Background="White" TabStripPlacement="Top">
+                <TabControl.Resources>
+                    <Style TargetType="{x:Type TabPanel}">
+                        <Setter Property="HorizontalAlignment" Value="Left" />
+                    </Style>
+                </TabControl.Resources>
+
+                <!--tab items test-->
+                <TabItem Background="White">
+                    <TabItem.Header>
+                        <Label Width="70" FontSize="13" FontWeight="SemiBold" Content="ItemsTest"/>
+                    </TabItem.Header>
+                    <Grid x:Name="grid_TestItem"/>
+                </TabItem>
+                
+                <!--tab log system-->
+                <TabItem Background="White">
+                    <TabItem.Header>
+                        <Label Width="75" FontSize="13" FontWeight="SemiBold" Content="LogSystem"/>
+                    </TabItem.Header>
+
+                    <ScrollViewer Margin="0,10,0,0" x:Name="Scr_LogSystem">
+                        <RichTextBox IsReadOnly="True" Margin="0,0,1,2" Padding="5,5,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Run Text="{Binding Path=logSystem, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </ScrollViewer>
+                </TabItem>
+
+                <!--tab log uart-->
+                <TabItem Background="White">
+                    <TabItem.Header>
+                        <Label Width="70" FontSize="13" FontWeight="SemiBold" Content="LogUart"/>
+                    </TabItem.Header>
+
+                    <ScrollViewer Margin="0,10,0,0" x:Name="Scr_LogUart">
+                        <RichTextBox IsReadOnly="True" Margin="0,0,1,2" Padding="5,5,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Run Text="{Binding Path=logUart, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </ScrollViewer>
+                </TabItem>
+
+            </TabControl>
+
+            <GridSplitter Grid.Row="3" Background="#FFFFFF" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            
+            <!--total result-->
+            <StackPanel Margin="5,0,0,0" Grid.Row="4">
+                <Label Foreground="Blue" HorizontalContentAlignment="Center" FontSize="15" Content="Total Result"/>
+                <Label HorizontalContentAlignment="Center" 
+                       Margin="0,-15,0,0"
+                       FontSize="50" FontWeight="Bold"
+                       Content="{Binding Path=totalResult, UpdateSourceTrigger=PropertyChanged}">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=totalResult}" Value="Passed">
+                                    <Setter Property="Foreground" Value="Lime"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=totalResult}" Value="Failed">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=totalResult}" Value="Waiting...">
+                                    <Setter Property="Foreground" Value="#d68f13"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=totalResult}" Value="-">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <Label FontSize="17" FontWeight="SemiBold" HorizontalContentAlignment="Center" Margin="0,-10,0,0" Content="{Binding Path=MacAddress, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock TextWrapping="Wrap"
+                           Height="100" 
+                           Margin="0,-10,0,0" Padding="5,5,5,5"
+                           FontSize="13" Foreground="Red"
+                           TextAlignment="Center"
+                           Text="{Binding Path=errorMessage, UpdateSourceTrigger=PropertyChanged}"
+                           />
+                
+            </StackPanel>
+            
+        </Grid>
+
+    </Border>
+
+</UserControl>

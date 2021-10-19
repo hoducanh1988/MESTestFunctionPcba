@@ -1,0 +1,151 @@
+﻿<UserControl x:Class="EW12S.UserCtrl.ucButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EW12S.UserCtrl"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <ScrollViewer Margin="0,10,0,0" x:Name="Scr_LogSystem">
+        <StackPanel Background="White" Margin="0,0,1,2">
+            <StackPanel.Resources>
+                <Style x:Key="radiostyle" TargetType="RadioButton">
+                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="IsEnabled" Value="False"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <Border BorderBrush="#777777" BorderThickness="0,0,0,1" Margin="0,0,0,5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Background" Value="White"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=buttonWps}" Value="Passed">
+                                <Setter Property="Background" Value="#18de3d"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=buttonWps}" Value="Failed">
+                                <Setter Property="Background" Value="#de4a18"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <WrapPanel>
+                    <Label Content="BUTTON WPS" FontWeight="SemiBold"/>
+                    <RadioButton Margin="50,0,0,0" Content="Passed">
+                        <RadioButton.Style>
+                            <Style BasedOn="{StaticResource radiostyle}" TargetType="RadioButton">
+                                <Setter Property="IsChecked" Value="False"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=buttonWps}" Value="Passed">
+                                        <Setter Property="IsChecked" Value="True"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=buttonWps}" Value="Failed">
+                                        <Setter Property="IsChecked" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RadioButton.Style>
+                    </RadioButton>
+                    <RadioButton Margin="20,0,0,0" Content="Failed">
+                        <RadioButton.Style>
+                            <Style BasedOn="{StaticResource radiostyle}" TargetType="RadioButton">
+                                <Setter Property="IsChecked" Value="False"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=buttonWps}" Value="Passed">
+                                        <Setter Property="IsChecked" Value="False"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=buttonWps}" Value="Failed">
+                                        <Setter Property="IsChecked" Value="True"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RadioButton.Style>
+                    </RadioButton>
+                </WrapPanel>
+            </Border>
+            <WrapPanel>
+                <Label FontSize="13" Content="{Binding Path=legendWps, UpdateSourceTrigger=PropertyChanged}">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Background" Value="Yellow"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=legendWps}" Value="-">
+                                    <Setter Property="Background" Value="White"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+            </WrapPanel>
+
+            <Border BorderBrush="#777777" BorderThickness="0,0,0,1" Margin="0,40,0,5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Background" Value="White"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=buttonReset}" Value="Passed">
+                                <Setter Property="Background" Value="#18de3d"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=buttonReset}" Value="Failed">
+                                <Setter Property="Background" Value="#de4a18"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <WrapPanel>
+                    <Label Content="BUTTON RESET" FontWeight="SemiBold"/>
+                    <RadioButton Margin="50,0,0,0" Content="Passed">
+                        <RadioButton.Style>
+                            <Style BasedOn="{StaticResource radiostyle}" TargetType="RadioButton">
+                                <Setter Property="IsChecked" Value="False"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=buttonReset}" Value="Passed">
+                                        <Setter Property="IsChecked" Value="True"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=buttonReset}" Value="Failed">
+                                        <Setter Property="IsChecked" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RadioButton.Style>
+                    </RadioButton>
+                    <RadioButton Margin="20,0,0,0" Content="Failed">
+                        <RadioButton.Style>
+                            <Style BasedOn="{StaticResource radiostyle}" TargetType="RadioButton">
+                                <Setter Property="IsChecked" Value="False"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=buttonReset}" Value="Passed">
+                                        <Setter Property="IsChecked" Value="False"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=buttonReset}" Value="Failed">
+                                        <Setter Property="IsChecked" Value="True"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RadioButton.Style>
+                    </RadioButton>
+                </WrapPanel>
+            </Border>
+            <WrapPanel>
+                <Label FontSize="13" Content="{Binding Path=legendReset, UpdateSourceTrigger=PropertyChanged}">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Background" Value="Yellow"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=legendReset}" Value="-">
+                                    <Setter Property="Background" Value="White"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+            </WrapPanel>
+        </StackPanel>
+    </ScrollViewer>
+    
+    
+
+</UserControl>

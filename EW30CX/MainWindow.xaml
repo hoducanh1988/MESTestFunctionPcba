@@ -1,0 +1,96 @@
+﻿<Window x:Class="EW30CX.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EW30CX"
+        xmlns:uc="clr-namespace:EW30CX.UserCtrl"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="400" WindowStartupLocation="Manual" ResizeMode="NoResize" Style="{StaticResource customWindow}">
+
+    <Window.Resources>
+
+        <Style x:Key="label_effect" TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="17"/>
+            <EventSetter Event="MouseDown" Handler="Label_MouseDown"/>
+            <Style.Triggers>
+                <Trigger Property="Label.IsMouseOver" Value="False">
+                    <Setter Property="FontWeight" Value="Normal"/>
+                </Trigger>
+                <Trigger Property="Label.IsMouseOver" Value="True">
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
+
+    <Border MouseDown="Border_MouseDown" CornerRadius="5,5,5,5" Background="#FFFFFF" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="3"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+            <!--app version-->
+            <Grid Grid.Row="0">
+                <TextBox Background="Transparent" IsReadOnly="True" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Left" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center"
+                         TextChanged="TextBox_TextChanged"
+                         Text="{Binding Path=StationNumber, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Label Style="{StaticResource label_effect}" Background="#FFFFFF" Tag="version" MouseDown="Label_MouseDown" Content="{Binding Path=appInfo, UpdateSourceTrigger=PropertyChanged}" FontSize="12" VerticalAlignment="Center" ToolTipService.ToolTip="Phiên bản phần mềm"/>
+                    <Label Tag="help" MouseDown="Label_MouseDown" Margin="10,0,0,0" Width="20" HorizontalContentAlignment="Center" FontSize="20" FontWeight="Bold" ToolTipService.ToolTip="Giúp đỡ" Padding="0,-5,0,0" Content="?"/>
+                    <Label Tag="close" MouseDown="Label_MouseDown" Margin="10,0,5,0" Width="20" HorizontalContentAlignment="Center" FontSize="20" FontWeight="Bold" ToolTipService.ToolTip="Đóng ứng dụng" Padding="0,-5,0,0" Content="X"/>
+                </WrapPanel>
+            </Grid>
+
+            <!--app name-->
+            <StackPanel Grid.Row="1">
+                <Label VerticalAlignment="Center" FontSize="24" FontWeight="SemiBold"
+                   Content="Product: EW30CX"/>
+                <Label Margin="0,-10,0,0" VerticalAlignment="Center" FontSize="20" FontWeight="SemiBold"
+                   Content="{Binding Path=StationName, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+
+            <!--app control-->
+            <Grid Grid.Row="2" Margin="5,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Style="{StaticResource label_effect}" Tag="runall" Grid.Column="0" Content="RUNALL"/>
+                <Label Style="{StaticResource label_effect}" Tag="manual" Grid.Column="1" Content="MANUAL"/>
+                <Label Style="{StaticResource label_effect}" Tag="setting" Grid.Column="2" Content="SETTING"/>
+            </Grid>
+
+            <!--minus-->
+            <Label x:Name="lblMinus" Margin="5,0,0,0" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="80" Background="Lime"/>
+
+            <!--content-->
+            <Grid x:Name="gridContent" Margin="5,10,5,5" Grid.Row="4"/>
+
+            <!--statusbar-->
+            <Grid Grid.Row="5" Margin="5,0,5,0">
+                <WrapPanel Margin="0,-5,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Image Tag="open_log_total" MouseDown="Image_MouseDown" Width="25" Margin="0,0,20,0" Source="/Assets/Images/total.png" ToolTip="Mở folder log total"/>
+                    <Label FontSize="13" FontWeight="SemiBold" Content="Serial Port:"/>
+                    <Label FontSize="13" FontWeight="SemiBold" Content="{Binding SerialPortName}"/>
+                    <Image Tag="open_log_detail" MouseDown="Image_MouseDown" Width="25" Margin="20,0,0,0" Source="/Assets/Images/detail.png" ToolTip="Mở folder log detail"/>
+                </WrapPanel>
+            </Grid>
+
+
+        </Grid>
+    </Border>
+</Window>

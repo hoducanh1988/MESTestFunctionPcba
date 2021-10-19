@@ -1,0 +1,5 @@
+﻿<SettingInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModelName>EW12CG</ModelName>
+  <StationName>UploadFirmwareBasic</StationName>
+  <JigNumber>1</JigNumber>
+</SettingInformation>
